@@ -5,3 +5,4 @@ docker version --format '{{.Server.Version}}'
 docker ps -a | awk '{print $NF}' (know the container names)
 docker ps -q (list the no of container ids)
 systemctl show --property=Environment docker (know what proxy is used)
+docker exec -it <containerID> /bin/bash
