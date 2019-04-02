@@ -26,3 +26,5 @@ region = us-west-2
 you can check the login with below command
 
 aws-okta exec dev -- bash
+
+env | grep AWS
