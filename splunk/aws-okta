@@ -1,0 +1,28 @@
+Installation Steps:
+
+1. brew install aws-okta
+2. brew link aws-okta
+
+Configuration Steps:
+
+1. aws-okta add   (Organization: SAND ; username: with Email; password: Okta Password)
+
+2. add below to vim ~/.aws/config
+
+[default]
+region = us-west-2
+output = json
+
+[profile dev]
+aws_saml_url = home/amazon_aws/d3ks93nhnfvpN01d8/392
+role_arn = arn:aws:iam::<aws_account_number>:role/test-access
+region = us-west-2
+
+[profile qa]
+aws_saml_url = home/amazon_aws/0oa1dv23hv4jsldks/292
+role_arn = arn:aws:iam::<aws_account_Number>:role/test-access
+region = us-west-2
+
+you can check the login with below command
+
+aws-okta exec dev -- bash

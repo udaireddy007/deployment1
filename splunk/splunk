@@ -1,0 +1,8 @@
+URL to push logs : https://<>
+
+[http://<>]
+disabled = 0
+index = test_in_sand
+indexes = test_in_sand
+sourcetype = docker
+token = xxxxxxx-xxx-xxxx-xxxxx-xxxxxxxx
