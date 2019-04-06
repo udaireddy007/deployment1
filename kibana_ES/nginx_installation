@@ -1,0 +1,36 @@
+
+1) Instance within your VPC install NGINX (sudo yum install nginx httpd-tools-y) and add the following sample configuraion:
+
+2) vim /etc/nginx/conf.d/nginx_keep_alive.conf
+
+events {
+    worker_connections 1024;
+}
+
+http {
+
+  upstream elasticsearch {
+    server 127.0.0.1:80;
+   
+    keepalive 15;
+ }
+ 
+ server {
+   listen 80;
+
+   location / {
+     proxy_pass <vpc_endpoint found in ES cluster, keep only http);
+     proxy_http_version 1.1;
+     proxy_set_header Connection "Keep-Alive";
+     proxy_set_header Proxy-Connection "Keep-Alive";
+   }
+
+ }
+
+}
+
+3) sudo nginx -p $PWD/nginx/ -c $PWD/nginx_keep_alive.conf
+
+4) now that the nginx proxy is up and running, you can now able to connect to Kibana endpoint by using the public IP of your EC2 proxy instance, for example: http://X.X.X.X/_plugin/kibana
+
+(make sure edit the SG rules to your IP)
