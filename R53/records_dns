@@ -1,0 +1,11 @@
+resource "aws_route53_record" "test_domain_dev" {
+  zone_id = "hosted_zone_id"
+  name    = ""
+  type    = "A"
+
+  alias {
+    name                   = "XXXXXX.elb.amazonaws.com"
+    zone_id                = "zone id of elb"
+    evaluate_target_health = true
+  }
+}
