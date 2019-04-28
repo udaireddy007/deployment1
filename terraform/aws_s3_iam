@@ -1,0 +1,199 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::dev-test-demo/*",
+                "arn:aws:s3:::dev-test-demo"
+            ]
+        }
+    ]
+}
+
+
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:List*",
+                "s3:Get*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::dev-dp-non-prod/*",
+                "arn:aws:s3:::dev-dp-non-prod",
+                "arn:aws:s3:::dev-repo-ok/*",
+                "arn:aws:s3:::dev-repo-ok"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject*",
+                "s3:DeleteObject*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ev-dp-non-prod/*",
+                "arn:aws:s3:::ev-dp-non-prod",
+                "arn:aws:s3:::dev-repo/*",
+                "arn:aws:s3:::dev-repo"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": [
+                "arn:aws:s3:::cm-non-prod-ib/*",
+                "arn:aws:s3:::cm-non-prod-ib"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:RestoreObject",
+                "s3:PutObjectVersionTagging",
+                "s3:PutObjectVersionAcl",
+                "s3:PutObjectTagging",
+                "s3:PutObjectAcl",
+                "s3:PutObject",
+                "s3:List*",
+                "s3:Get*",
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": [
+                "arn:aws:s3:::cm-non-prod-ib/*",
+                "arn:aws:s3:::cm-non-prod-ib"
+            ],
+            "Condition": {
+                "StringNotLike": {
+                    "s3:prefix": [
+                        "A prefix/*",
+                        "A prefix",
+                        "B prefix/*",
+                        "B prefix",
+                        "Cprefix/*",
+                        "Cprefix",
+                        "Dprefix/*",
+                        "Dprefix"
+                    ]
+                }
+            }
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "sqs:*",
+            "Resource": [
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-tmm-non-prod/*",
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-tmm-non-prod",
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-non-prod/*",
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-non-prod",
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-tmm-prod/*",
+                "arn:aws:sqs:us-west-2:ACCOUNTNUMBER:rdx-test-tmm-prod"
+            ]
+        }
+    ]
+}
+
+
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::non-prod-id",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": "ht/dtest"
+                }
+            }
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:RestoreObject",
+                "s3:PutObjectVersionTagging",
+                "s3:PutObjectVersionAcl",
+                "s3:PutObjectTagging",
+                "s3:PutObjectAcl",
+                "s3:PutObject*",
+                "s3:List*",
+                "s3:Get*",
+                "s3:DeleteObjectVersion",
+                "s3:DeleteObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": [
+                "arn:aws:s3:::non-prod-id/ht/dtest/*",
+                "arn:aws:s3:::non-prod-id/ht/dtest"
+            ]
+        }
+    ]
+}
+
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "states:UpdateStateMachine",
+            "Resource": "arn:aws:states:us-west-2:ACCOUNT_NUMBER:stateMachine:test-dev"
+        }
+    ]
+}
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "lambda:UpdateFunctionCode",
+            "Resource": [
+                "arn:aws:lambda:us-west-2:ACCOUNT_NUMBER:function:function1",
+                "arn:aws:lambda:us-west-2:ACCOUNT_NUMBER:function:function2",
+                "arn:aws:lambda:us-west-2:ACCOUNT_NUMBER:function:function3",
+                "arn:aws:lambda:us-west-2:ACCOUNT_NUMBER:function:function4"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject*",
+                "s3:List*",
+                "s3:Get*",
+                "s3:DeleteObject*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::lambdas-uat/*",
+                "arn:aws:s3:::lambdas-uat"
+            ]
+        }
+    ]
+}
+
+
+
+
