@@ -9,3 +9,12 @@ resource "aws_route53_record" "test_domain_dev" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_route53_record" "test_dev_extt_api_domain" {
+  zone_id = "${aws_route53_zone.test_hostedzone.zone_id}"
+  name    = "dev.test.com"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["gee--ext-us-west-2.elb.amazonaws.com"]
+}
+
