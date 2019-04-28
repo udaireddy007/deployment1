@@ -1,0 +1,8 @@
+aws sns list-topics
+aws sns create-topic --name test
+aws sns list-topics
+aws sns subscribe --topic-arn arn:aws:sns:us-west-2:ACCOUNTNUMBER:test --protocol email --notification-endpoint xxxxxxxxxxx@gmail.com
+aws sns publish --topic-arn arn:aws:sns:us-west-2:ACCOUNTNUMBER:test --message "uday message"
+aws sns unsubscribe --subscription-arn arn:aws:sns:us-west-2:ACCOUNTNUMBER:test:e85ad47b-b6fe-4bfd-aa54-1220a70563f7
+aws sns delete-topic --topic-arn arn:aws:sns:us-west-2:ACCOUNTNUMBER:test
+aws sns list-topics

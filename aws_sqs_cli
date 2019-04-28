@@ -1,0 +1,18 @@
+vim attributejson.json
+"MessageRetentionPeriod":"259200"}
+
+aws sqs list-queues
+
+aws sqs create-queue --queue-name test --attributes file://attributejson.json
+
+aws sqs send-message --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER/test --message-body "This is my message"
+
+aws sqs receive-message --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER0/test
+
+aws sqs delete-message --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER/test  --receipt-handle AQEBhN42o3CuezdcwvwCVPX5iSv+zrasEXkeS4MdqswBa6bd/1b898YLIh2pQ9QCSU/Lud5oAFczhT4kgizBvBUnbUGXy67MD+d1HIV7L9f4wPDr35o3pHtr1XJ/1EFIWkhGF8bhqw/VTzC2+A1O4rVAqgBvhNh4JV1NZl0HzdmvAfROSfUn07ujodrDqTIpZB3tzZl+YVtgjv5sl/w3hB4NJu4hs26T1VmBgelafQ5TB3jQi8ohjybRUJVomspptVx+bgAkIgnrhCzELgHRGMhXBA8YncxzggTxKQ1qCc+LlhlVtWG/h66hIO3T+wBZxvsbN28nXiWqLsFisqfPwnH5u17Bg1myGM4qRNoZeMTEMZsvGVXUiCcyKDhvbDj2NOKNplykiMGTMnNxqrI84loX9A==
+
+aws sqs send-message --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER/test --message-body "This is my message" --delay-seconds 10
+
+aws sqs delete-queue --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER/test 
+
+aws sqs list-queues

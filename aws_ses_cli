@@ -1,0 +1,6 @@
+aws ses verify-email-identity --email-address xxxxxx@gmail.com --region us-west-2
+aws ses verify-email-identity --email-address xxxxxxr@gmail.com --region us-west-2
+aws ses list-identities
+aws ses send-email --from xxxxxx@gmail.com --to xxxxxx@gmail.com --subject "Avengers" --text "Avengers Movie" --region us-west-2
+aws ses get-send-quota --region us-west-2
+aws ses list-identities
