@@ -1,0 +1,5 @@
+{
+        "cmd": ["php", "$file"]
+}
+
+save it with PHP.submile-build
