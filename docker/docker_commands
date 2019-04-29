@@ -6,3 +6,11 @@ docker ps -a | awk '{print $NF}' (know the container names)
 docker ps -q (list the no of container ids)
 systemctl show --property=Environment docker (know what proxy is used)
 docker exec -it <containerID> /bin/bash
+docker images
+docker image ls
+docker image rm <image id>
+docker container ls -a
+docker container rm <container id>
+docker build -t hello-world
+docker run -p 80:80 hellow-world
+docker run -p 80:80 -v /Users/xxx/xxx/src:/var/www/html/ hello-world
