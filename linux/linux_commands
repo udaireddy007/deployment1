@@ -1,0 +1,7 @@
+I - to insert at the beginning of the line
+A - end of line
+5G - 5th line
+:set nu
+gg - top of file
+G - end of file
+ 
