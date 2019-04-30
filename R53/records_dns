@@ -18,3 +18,11 @@ resource "aws_route53_record" "test_dev_extt_api_domain" {
   records = ["gee--ext-us-west-2.elb.amazonaws.com"]
 }
 
+resource "aws_route53_record" "devcloud_dev_zone" {
+  zone_id = "${aws_route53_zone.devcloud_hostedzone.zone_id}"
+  name    = "ux.dev.test.com"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["xxxxxxx.cloudfront.net"]
+}
+
