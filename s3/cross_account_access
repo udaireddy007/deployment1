@@ -1,0 +1,58 @@
+Bucket is in Account A:
+Bucket Policy in Account A:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::ACCOUNT-B-ACCOUNT_NUMBER:user/test"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:List*",
+                "s3:Get*",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::test-dev",
+                "arn:aws:s3:::test-dev/*"
+            ]
+        }
+    ]
+}
+
+
+IAM user is in Account B:
+IAM user policy in Account B:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:List*",
+                "s3:Get*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::test-dev/*",
+                "arn:aws:s3:::test-dev"
+            ]
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::test-dev/*",
+                "arn:aws:s3:::test-dev"
+            ]
+        }
+    ]
+}
