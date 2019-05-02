@@ -3,6 +3,25 @@ resource "aws_iam_user" "test" {
   force_destroy = true
 }
 
+resource "aws_iam_user" "tf_dev" {
+  name              = "tf-dev"
+  force_destroy = true
+
+  tags {
+    Name = "Mike"
+    Application = "test"
+  }
+}
+
+resource "aws_iam_role" "tf_dev" {
+  name = "tf-dev"
+  
+  tags {
+    Name = "Mike"
+    Application = "test"
+  }
+}
+
 data "aws_iam_policy_document" "test" {
   statement {
     actions = [
