@@ -15,4 +15,3 @@ aws sqs send-message --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNU
 
 aws sqs delete-queue --queue-url https://us-west-2.queue.amazonaws.com/ACCOUNTNUMBER/test 
 
-aws sqs list-queues
