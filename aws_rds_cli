@@ -1,0 +1,3 @@
+aws rds describe-db-log-files --db-instance-identifier tf-201902345746475856756857654
+
+aws rds download-db-log-file-portion --db-instance-identifier tf-2016042223234543400012 --starting-token 0 --output text --log-file-name error/postgresql.log.2019-02-02-21 > errorlog.txt
