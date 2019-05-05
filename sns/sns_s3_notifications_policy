@@ -1,0 +1,44 @@
+{
+  "Version": "2008-10-17",
+  "Id": "__default_policy_ID",
+  "Statement": [
+    {
+      "Sid": "__default_statement_ID",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "SNS:ListSubscriptionsByTopic",
+        "SNS:Subscribe",
+        "SNS:DeleteTopic",
+        "SNS:GetTopicAttributes",
+        "SNS:Publish",
+        "SNS:RemovePermission",
+        "SNS:AddPermission",
+        "SNS:Receive",
+        "SNS:SetTopicAttributes"
+      ],
+      "Resource": "arn:aws:sns:us-west-2:ACCOUNT_NUMBER:testS3",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceOwner": "ACCOUNT_NUMBER"
+        }
+      }
+    },
+    {
+      "Sid": "example-statement-ID",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "arn:aws:sns:us-west-2:ACCOUNT_NUMBER:testS3",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:*:*:*"
+        }
+      }
+    }
+  ]
+}
