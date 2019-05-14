@@ -4,4 +4,6 @@ A - end of line
 :set nu
 gg - top of file
 G - end of file
- 
+
+//copy file from local to instance
+scp -i "harness.pem" harness.tar.gz ec2-user@ec2-24.34.44.234.us-west-2.compute.amazonaws.com:/home/ec2-user 
