@@ -1,0 +1,67 @@
+Prerequisites
+
+1)Two AWS accounts(One for source S3 bucket and another for destination S3 bucket)
+2)Create an IAM user in destination AWS account 
+3)Configure AWS CLI in local machine with previously created IAM user credentials
+
+
+1) Setup Source and Destination S3 buckets (upload some objects to source bucket)
+
+2) Setup IAM user in destination bucket
+
+3) Setup below bucket policy in Source bucket:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DelegateS3Access",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::DESTINATION_BUCKET_ACCOUNT_NUMBER:root"
+            },
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::SOURCE_BUCKET_NAME/*",
+                "arn:aws:s3:::SOURCE_BUCKET_NAME"
+            ]
+        }
+    ]
+}
+
+
+4) Setup IAM policy and attach to IAM user in destination bucket:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::SOURCE_BUCKET_NAME",
+                "arn:aws:s3:::SOURCE_BUCKET_NAME/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::DESTINATION_BUCKET_NAME",
+                "arn:aws:s3:::DESTINATION_BUCKET_NAME/*"
+            ]
+        }
+    ]
+}
+
+5) aws s3 sync s3://SOURCE-BUCKET-NAME s3://DESTINATION-BUCKET-NAME --source-region SOURCE-REGION-NAME --region DESTINATION-REGION-NAME
