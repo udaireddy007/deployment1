@@ -1,0 +1,15 @@
+---
+- hosts: testing
+  remote_user: uday
+  become: yes
+
+
+  tasks:
+
+  - name: Update System
+    yum: name=* state=latest
+  
+  - file: 
+      path: /home/uday.sh
+      state: touch
+      mode: "u+x"

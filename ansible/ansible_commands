@@ -1,0 +1,6 @@
+ansible testing -m ping or
+
+ansible all -m ping
+
+ansible-playbook test.yml
+
