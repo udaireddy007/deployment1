@@ -1,0 +1,17 @@
+EC2: aws ec2 describe-instances --region us-west-2 | grep running |wc -l
+
+VPC: aws ec2 describe-vpcs --region us-west-2 | grep available|wc -l
+
+IAM Users: aws iam list-users | grep UserName | wc -l
+
+ENI: aws ec2 describe-network-interfaces --region us-west-2| grep InterfaceType | grep interface|wc -l
+
+S3: aws s3 ls |wc -l
+
+RDS: aws rds describe-db-instances --region us-west-2 | grep "DbiResourceId" | wc -l
+
+EIPs: aws ec2 describe-addresses
+
+ELB: aws elb describe-load-balancers --region us-west-2|grep VPCId|wc -l
+
+EBS: aws ec2 describe-volumes --region us-west-2 | grep AttachTime |  wc -l
