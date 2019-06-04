@@ -1,0 +1,69 @@
+resource "aws_ses_domain_identity" "cloud_service" {
+  domain = "cloud.service"
+}
+
+resource "aws_route53_record" "cloud_service_amazonses_verification_record" {
+  zone_id = "ABCDEFGHIJKLM"
+  name    = "_amazonses.cloud.service"
+  type    = "TXT"
+  ttl     = "600"
+  records = ["${aws_ses_domain_identity.cloud_service.verification_token}"]
+}
+
+resource "aws_ses_email_identity" "cloudservicetek" {
+  email = "${var.email_id}"
+}
+
+resource "aws_sns_topic" "bounce_ses_topic" {
+  name = "bounce-ses-mcx"
+}
+
+resource "aws_sns_topic" "complaint_ses_topic" {
+  name = "complaint-ses-mcx"
+}
+
+resource "aws_ses_identity_notification_topic" "cloud_service_tek_bounce_identity_notification" {
+  topic_arn         = "${aws_sns_topic.bounce_ses_topic.arn}"
+  notification_type = "Bounce"
+  identity          = "${aws_ses_domain_identity.cloud_service.domain}"
+}
+
+resource "aws_ses_identity_notification_topic" "cloud_service_tek_complaint_identity_notification" {
+  topic_arn         = "${aws_sns_topic.complaint_ses_topic.arn}"
+  notification_type = "Complaint"
+  identity          = "${aws_ses_domain_identity.cloud_service.domain}"
+}
+
+resource "aws_ses_domain_dkim" "cloud_service_dkim" {
+  domain = "${aws_ses_domain_identity.cloud_service.domain}"
+}
+
+resource "aws_route53_record" "cloud_service_tek_amazonses_verification_record" {
+  count   = 3
+  zone_id = "ABCDEFGHIJKL"
+  name    = "${element(aws_ses_domain_dkim.cloud_service_dkim.dkim_tokens, count.index)}._domainkey.cloud.service"
+  type    = "CNAME"
+  ttl     = "600"
+  records = ["${element(aws_ses_domain_dkim.cloud_service_dkim.dkim_tokens, count.index)}.dkim.amazonses.com"]
+}
+
+resource "aws_ses_domain_mail_from" "cloudservicetek" {
+  domain           = "${aws_ses_domain_identity.cloud_service.domain}"
+  mail_from_domain = "bounce.${aws_ses_domain_identity.cloud_service.domain}"
+}
+
+resource "aws_route53_record" "cloudservice_ses_domain_mail_from_mx" {
+  zone_id = "ABCDEFGHIJKLMNO"
+  name    = "${aws_ses_domain_mail_from.cloudservicetek.mail_from_domain}"
+  type    = "MX"
+  ttl     = "600"
+  records = ["10 feedback-smtp.us-east-1.amazonses.com"]           
+}
+
+resource "aws_route53_record" "cloudservice_ses_domain_mail_from_txt" {
+  zone_id = "ABCDEFGHIJKLMN"
+  name    = "${aws_ses_domain_mail_from.cloudservicetek.mail_from_domain}"
+  type    = "TXT"
+  ttl     = "600"
+  records = ["v=spf1 include:amazonses.com ~all"]
+}
