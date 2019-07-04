@@ -1,0 +1,4 @@
+lpass login <username>
+lpass ls
+lpass show <unique id>
+lpass logout
