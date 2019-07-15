@@ -1,0 +1,9 @@
+IAM Commands:
+
+aws iam list-groups
+
+aws iam list-users
+
+aws iam list-attached-group-policies --group-name Admins
+
+aws iam list-attached-user-policies - -user-name test

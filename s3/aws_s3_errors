@@ -1,0 +1,2 @@
+Error: When you see this below error in S3 while doing S3 cp operation, try using --recursive
+Invalid length for parameter Key, value: 0, valid range: 1-inf

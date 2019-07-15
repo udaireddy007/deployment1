@@ -1,0 +1,1 @@
+curl -IkL https://repo.xxxxxx.com (command to test connection in instance to bitbucket)

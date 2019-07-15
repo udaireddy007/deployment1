@@ -34,3 +34,9 @@ http {
 4) now that the nginx proxy is up and running, you can now able to connect to Kibana endpoint by using the public IP of your EC2 proxy instance, for example: http://X.X.X.X/_plugin/kibana
 
 (make sure edit the SG rules to your IP)
+
+Troubleshooting:
+1) the instance should reach the ES.
+2) telnet <vpc endpoint> 443
+3) curl -XGET <vpc endpoint>
+4) add SG rule for ES SG to EC2 instance SG
