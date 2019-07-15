@@ -1,0 +1,42 @@
+https://aws.amazon.com/premiumsupport/knowledge-center/s3-cross-account-upload-access/
+
+1) IAM User Policy (Account A)
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bucketname",
+                "arn:aws:s3:::bucketname/*"
+            ]
+        }
+    ]
+}
+
+2) Bucket Policy (Account B)
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DelegateS3Access",
+            "Effect": "Allow",
+            "Principal": {"AWS": "arn:aws:iam::999999999999:user/UploadData"},
+            "Action": ["s3:PutObject", "s3:ListBucket"],
+            "Resource": [
+                "arn:aws:s3:::bucketname",
+                "arn:aws:s3:::bucketname/*"
+            ]
+        }
+    ]
+}
+
+######Important: For the value of Principal, be sure to enter the ARN of the IAM user in Account A.############
+
+#####After you set up the IAM user policy in Account A and the bucket policy in Account B, the IAM user can upload objects to the bucket##########
