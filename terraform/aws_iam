@@ -91,3 +91,43 @@ resource "aws_iam_policy" "test_json" {
   name   = "testuserinsand"
   policy = "${data.aws_iam_policy_document.test_json.json}"
 }
+
+
+###############IAM User, Policy, Attachment############
+
+
+resource "aws_iam_user" "eng_dev_test" {
+  name          = "eng-dev-test"
+  path          = "/"
+  force_destroy = true
+
+  tags {
+    Name        = "Uday Ragireddy"
+    Application = "Test Application"
+  }
+}
+
+resource "aws_iam_user_policy_attachment" "eng_iam_dev_test" {
+  user       = "${aws_iam_user.eng_dev_test.name}"
+  policy_arn = "${aws_iam_policy.eng_dev_test_iam.arn}"
+}
+
+resource "aws_iam_policy" "eng_dev_test_iam" {
+  name   = "sm_rw_policy"
+  policy = "${data.aws_iam_policy_document.eng_dev_test_iam_policy.json}"
+}
+
+data "aws_iam_policy_document" "eng_dev_test_iam_policy" {
+  statement {
+    actions = [
+      "kms:ListAliases",
+      "kms:ListKeys",
+      "lambda:ListFunctions",
+      "rds:DescribeDBClusters",
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
+}
