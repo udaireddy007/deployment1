@@ -1,0 +1,3 @@
+aws iam create-service-linked-role --aws-service-name es.amazonaws.com
+
+curl -XGET 'https://<endpoint>/_cat/indices'
