@@ -1,1 +1,15 @@
 aws cloudfront create-invalidation --distribution-id E2CDFHUTYESDS  --paths "/*"
+
+# find the ips of current cloudfront
+
+curl -o ip-ranges.json https://ip-ranges.amazonaws.com/ip-ranges.json
+
+jq  '.prefixes[] | select(.service=="CLOUDFRONT")' < ip-ranges.json | grep ip_prefix
+
+jq  '.prefixes[] | select(.service=="CLOUDFRONT")' < ip-ranges.json
+
+https://ip-ranges.amazonaws.com/ip-ranges.json
+
+https://aws.amazon.com/blogs/security/how-to-automatically-update-your-security-groups-for-amazon-cloudfront-and-aws-waf-by-using-aws-lambda/
+
+https://www.whatsmydns.net
