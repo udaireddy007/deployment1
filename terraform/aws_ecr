@@ -1,0 +1,18 @@
+#main.tf
+resource "aws_ecr_repository" "cantemo" {
+  count = "${length(var.repo_envs)}"
+  name = "${var.repo_envs[count.index]}/cantemo"
+}
+
+
+#variables.tf
+
+variable "repo_envs" {
+  type = "list"
+  default = [
+    "dev",
+    "qa",
+    "integ",
+    "prod"
+  ]
+}
