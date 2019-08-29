@@ -4,6 +4,8 @@ aws s3 ls s3://bucket-name
 
 aws s3api put-object --bucket <bucket_name> --key test/dev.zip --body dev.zip  --region us-west-2
 
+aws s3 cp <file.sh> s3://<bucket-name> --sse AES256
+
 https://docs.aws.amazon.com/cli/latest/reference/s3api/put-object.html
 
 https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html
@@ -20,6 +22,9 @@ aws s3api list-objects --bucket BUCKETNAME --output json --query "[sum(Contents[
 ######Move S3 bucket to different location###########
 aws s3 sync s3://oldbucket s3://newbucket --source-region us-west-1 --region us-west-2
 
+
+#######Download objects##########
+aws s3api get-object --bukcet <bucket-name> --key <sourcefile> <destination>
 
 
 
