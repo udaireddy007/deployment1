@@ -1,1 +1,7 @@
 sed -i -e "s#sourcefile#destinationfile#g" test.yml
+
+sed -i -e "s#6#G#g" test.txt (this replaces the number 6 with G)
+
+g - Replace the contents of the pattern space with the contents of the hold space.
+
+s - Substitute the replacement string for the first instance of the regular expression in the pattern space.
