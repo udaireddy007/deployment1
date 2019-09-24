@@ -14,3 +14,6 @@ docker container rm <container id>
 docker build -t hello-world
 docker run -p 80:80 hellow-world
 docker run -p 80:80 -v /Users/xxx/xxx/src:/var/www/html/ hello-world
+
+docker ps | grep jenkins (find specific containers)
+
