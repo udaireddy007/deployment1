@@ -196,4 +196,26 @@
 
 
 
+// this is the policy to restrict the user to only specific S3 bucket (which is read only list access) and can list all S3 buckets but cant see the objects in S3 bucket
 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:List*",
+            "Resource": [
+                "123456789",
+                "123456789/*"
+            ]
+        }
+    ]
+}
