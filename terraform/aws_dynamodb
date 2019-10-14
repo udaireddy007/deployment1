@@ -1,0 +1,40 @@
+################ DynamoDB RW POLICY ###########################################
+​
+resource "aws_iam_policy" "dynamodb_policy" {
+  name   = "dynamodb_policy"
+  path   = "/"
+  policy = "${data.aws_iam_policy_document.dynamodb_policy.json}"
+}
+​
+data "aws_iam_policy_document" "dynamodb_policy" {
+  statement {
+    actions = [
+      "dynamodb:BatchGetItem",
+      "dynamodb:DescribeTable",
+      "dynamodb:GetItem",
+      "dynamodb:ListTables",
+      "dynamodb:Query",
+      "dynamodb:PutItem",
+      "dynamodb:UpdateItem",
+      # "dynamodb:DeleteItem",
+      "dynamodb:Scan",
+      "dynamodb:DescribeReservedCapacity",
+      "dynamodb:DescribeReservedCapacityOfferings",
+      "dynamodb:ListTagsOfResource",
+      "dynamodb:DescribeTimeToLive",
+      "dynamodb:DescribeLimits",
+      "dynamodb:ListGlobalTables",
+      "dynamodb:DescribeGlobalTable",
+      "dynamodb:DescribeBackup",
+      "dynamodb:ListBackups",
+      "dynamodb:DescribeContinuousBackups",
+    ]
+​
+    effect = "Allow"
+​
+    resources = [
+      "arn:aws:dynamodb:us-west-2:${var.aws_account_number}:table/table-name-test-1",
+      "arn:aws:dynamodb:us-west-2:${var.aws_account_number}:table/table-name-test-2"
+    ]
+  }
+}

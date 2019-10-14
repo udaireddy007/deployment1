@@ -1,0 +1,28 @@
+data "aws_iam_user" "example" {
+  user_name = "an_example_user_name"
+}
+
+data "aws_ecr_repository" "service" {
+  name = "ecr-repository"
+}
+
+data "aws_s3_bucket" "selected" {
+  bucket = "bucket.test.com"
+}
+
+data "aws_route53_zone" "test_zone" {
+  name = "test.com."
+}
+
+data "aws_ecr_image" "service_image" {
+  repository_name = "my/service"
+  image_tag       = "latest"
+}
+
+data "aws_iam_role" "example" {
+  name = "an_example_role_name"
+}
+
+data "aws_sqs_queue" "example" {
+  name = "queue"
+}

@@ -28,5 +28,8 @@ aws s3 sync s3://oldbucket s3://newbucket --source-region us-west-1 --region us-
 aws s3api get-object --bukcet <bucket-name> --key <sourcefile> <destination>
 
 
+// I have a bucket named S3BUCKET which contains a folder named archive. I want to copy down locally all objects from the root of S3BUCKET, and I want to exclude archive. After many tries, here is a command that worked for me //
 
+aws s3 cp s3://S3BUCKET/ . --exclude "archive/*" --recursive
 
+aws s3 cp . s3://100daysofdevopsbucket --recursive --exclude "*.jpg"

@@ -1,0 +1,50 @@
+######################### S3 bucket creation  #############################
+
+resource "aws_s3_bucket" "storage" {
+  bucket = "new-test-bucket"
+  acl    = "private"
+
+tags = {
+    Name        = "new-test-bucket"
+    Environment = "stage"
+  }
+
+  versioning {
+    enabled = true
+  }
+
+  logging {
+    target_bucket = "${aws_s3_bucket.aws_s3_logs_storage.id}"
+    target_prefix = "test_Logs/"
+  }
+  
+server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+ }
+}
+
+// AWS S3 Bucket for Logs //
+
+resource "aws_s3_bucket" "aws_s3_logs_storage" {
+  bucket = "aws-logs-bucket"
+  acl    = "private"
+  acl    = "log-delivery-write"
+
+tags = {
+    Name        = "aws-logs-bucket"
+    Environment = "stage"
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
+}
