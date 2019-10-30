@@ -1,0 +1,2 @@
+// KMS ENCRYPT //
+aws kms encrypt —-key-id ABCDE-ABCD-AB-CD-ABCDE —-plaintext file://secrets.json —-region us-west-2 --output text --query CiphertextBlob > secrets.base64.json

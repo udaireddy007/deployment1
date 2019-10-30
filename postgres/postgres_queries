@@ -1,0 +1,7 @@
+// COPY DATA TO A FILE FROM POSTGRES //
+\copy (SELECT id,name,age,sex FROM files limit 30) to '/tmp/files.csv' with csv
+\copy (SELECT * FROM files limit 30) to 'C:\tmp\files.csv' with csv
+
+https://www.postgresql.org/docs/11/sql-copy.html
+
+

@@ -33,3 +33,9 @@ aws s3api get-object --bukcet <bucket-name> --key <sourcefile> <destination>
 aws s3 cp s3://S3BUCKET/ . --exclude "archive/*" --recursive
 
 aws s3 cp . s3://100daysofdevopsbucket --recursive --exclude "*.jpg"
+
+// HEAD OBJECT //
+aws s3api head-object --bucket sample_bucket --key sample 
+
+// GET OBJECT TAGGING //
+aws s3api get-object-tagging --bucket sample_bucket  --key sample/sample.zip

@@ -1,0 +1,90 @@
+References:
+==========
+https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html 
+https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html 
+https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-contents 
+https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-lifecycle.html 
+
+Check out the AWS Support Knowledge Center, a knowledge base of articles and videos that answer customer questions about AWS services: https://aws.amazon.com/premiumsupport/knowledge-center/?icmpid=support_email_category 
+
+http://aws.amazon.com/training/ 
+
+The entity tag is a hash of the object. The ETag reflects changes only to the contents of an object, not its metadata.
+
+head-operation you get the metadata which includes the ETag
+
+Sample output: 
+{
+    "AcceptRanges": "bytes",
+    "ContentType": "text/html",
+    "LastModified": "Thu, 16 Apr 2015 18:19:14 GMT",
+    "ContentLength": 77,
+    "VersionId": "null",
+    "ETag": "\"30a6ec7e1a9ad79c203d05a589c8b400\"",
+    "Metadata": {}
+}
+
+Notice the output does not have a key name. 
+However, we can take advantage of the command’s --query parameter to perform JMESPath queries for specific members and values in the JSON output.
+
+Example: 
+aws s3api list-objects --bucket mybucket --output json --query 'Contents[].[Key]' | jq -r '.[] | "--key '\''" + .[0] + "'\''" ' | xargs -L1 aws s3api head-object --bucket mybucket 
+You can modify the above command to print the key name. 
+Links: 
+[1]: https://aws.amazon.com/blogs/developer/leveraging-the-s3-and-s3api-commands/ 
+[2]: http://jmespath.org/examples.html 
+
+You could also use the boto 3 script to achieve the same.
+Links:
+[3]: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.head_object 
+[4]: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-examples.html#amazon-s3-examples 
+
+Please note, code support is not within scope of premium support.
+However, we are happy to provide general guidance on the same. 
+
+We also discussed the Cloudwatch metrics for S3 buckets. 
+Daily Storage Metrics for Buckets ‐ You can monitor bucket storage using CloudWatch, which collects and processes storage data from Amazon S3 into readable, daily metrics. These storage metrics for Amazon S3 are reported once per day and are provided to all customers at no additional cost. 
+
+The two metrics provided free of cost are: BucketSizeBytes and NumberOfObjects
+
+Please note, that the graph for BucketSizeBytes is per storage class. You would be required to add these values in order to achieve the total size in bytes.
+[5]: https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html#s3-cloudwatch-metrics 
+
+=== GUI Options ===
+
+i) AWS S3 Web Console: Select Bucket --> Management --> m=Metrics --> BucketSizeBytes / NumberOfObjects 
+
+ii) AWS CloudWatch Web Console: Metrics --> S3 --> Storage Metrics --> Select Bucket ( BucketSizeBytes / NumberOfObjects )  --> Graphed Metrics tab
+
+Monitoring Metrics with Amazon CloudWatch - https://docs.aws.amazon.com/AmazonS3/latest/dev/cloudwatch-monitoring.html 
+
+=== CLI Options ===
+
+i) S3 List Command (you can grep for 'Total' ):
+
+aws s3 ls --summarize --human-readable --recursive s3:///
+
+Alternatively, you can use the aws s3api list-objects command as follows:
+
+aws s3api list-objects-v2 --bucket  --output json --query "[sum(Contents[].Size), length(Contents[])]"
+
+More info in the links resource links:
+
+AWS CLI - https://aws.amazon.com/cli/ 
+aws s3 ls - https://docs.aws.amazon.com/cli/latest/reference/s3/ls.html 
+aws s3api list-objects-v2 - https://docs.aws.amazon.com/cli/latest/reference/s3api/list-objects-v2.html 
+
+ii) aws cloudwatch get-metric-statistics  Command:
+
+You'll need to substitute for the correct bucket name & time period:
+
+aws cloudwatch get-metric-statistics --metric-name BucketSizeBytes --namespace AWS/S3 --start-time 2019-10-07T00:00:00Z --end-time 2019-10-08T00:00:00Z --statistics Average --unit Bytes --region us-west-2 --dimensions Name=BucketName,Value=  Name=StorageType,Value=AllStorageTypes --period 86400 --output json
+
+aws cloudwatch get-metric-statistics --namespace AWS/S3 --metric-name NumberOfObjects --dimensions Name=BucketName,Value=  Name=StorageType,Value=AllStorageTypes --start-time 2019-10-06T00:00:00Z --end-time 2019-10-07T00:00:00Z --period 86400 --statistic Average
+
+Refer to the below internal & 3rd-party links for more info:
+
+aws cloudwatch get-metric-statistics - https://docs.aws.amazon.com/cli/latest/reference/cloudwatch/get-metric-statistics.html 
+Using CloudWatch to Monitor AWS S3 Buckets - https://www.opsdash.com/blog/aws-s3-cloudwatch-monitoring.html 
+S3 Monitoring Step #1 – Bucket Size and Number of Objects - http://cloudsqale.com/2018/10/08/s3-monitoring-step-1-bucket-size-and-number-of-objects/ 
+
