@@ -1,0 +1,22 @@
+// this policy is to restrict access to user or role to specific s3 bucket //
+{
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": [
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::BUCKET_NAME",
+                "arn:aws:s3:::BUKCET_NAME/*"
+            ],
+            "Condition": {
+                "StringLike": {
+                    "aws:userId": [
+                        "AROAIYUIPOSHGEZLZ7OIEA:*"
+                    ]
+                }
+            }
+        }
+
+Note: To get the userID perform: aws iam get-role --role-name <role_nmae>
