@@ -1,2 +1,5 @@
 // KMS ENCRYPT //
-aws kms encrypt —-key-id ABCDE-ABCD-AB-CD-ABCDE —-plaintext file://secrets.json —-region us-west-2 --output text --query CiphertextBlob > secrets.base64.json
+
+aws kms encrypt --key-id 0000000-0000-0000-f78u-a34343434343434f2 --plaintext 'PASSWORD_STRING' --query CiphertextBlob --output text
+
+aws kms decrypt --ciphertext-blob fileb://<(echo ACHUSHDJKFHSDNFKJSDUHFSKNGSJDHGKJDNKJDFGJKDBNJKBFGIUERHGJDB;sj;dgdsndkfkgndjfgbddbvjdfbJFGKJ;nfkjdngrhgfKJHGKND.FKGHD;KJDGDNFJGHDKJGBSLJGHSDFGHIURGHBFWERTYUISDFGHJKDFGHJDFGHJVFGHERTYUFGHCVBGHJFGHJGHFGH= | base64 -D) --query Plaintext --output text | base64 -D
