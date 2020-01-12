@@ -3,3 +3,22 @@ git branch -r | grep rds-12 (which shows the branches starting with rds-12)
 ##shows the minified result##
 git status --short
 
+##deletes the branch###
+git branch -d <branch_name>
+
+## force deletion ##
+git branch -D <branch_name>
+
+## return latest commits from current position ##
+git log -2 # display two recent commits
+
+## display log for a specific branch ##
+git log <branch_name>
+
+## filter by date ##
+git log --since 2019-12-04
+
+## displays the staged changes ##
+git diff <branch_name>
+
+
