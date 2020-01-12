@@ -1,2 +1,5 @@
 git branch -r | grep rds-12 (which shows the branches starting with rds-12)
 
+##shows the minified result##
+git status --short
+
