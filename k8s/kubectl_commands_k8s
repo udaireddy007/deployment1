@@ -1,0 +1,74 @@
+export KUBECONFIG=$KUBECONFIG:~/.kube/config-devel
+
+#### kubectl nodes ###
+kubectl get nodes
+
+#### kubectl describe ####
+kubectl describe svc traefik
+
+##### get svc in json format ###
+kubectl get service traefik -o json
+
+Install helm tiller with rbac and service account: https://www.kevinhooke.com/2019/02/02/kubernetes-installing-helm-tiller-with-rbac-role-and-service-account/
+ALB Ingress Controller: https://docs.aws.amazon.com/eks/latest/userguide/alb-ingress.html
+
+#### pods & namespaces #####
+kubectl create namespace splunk-connect-k8s
+kubectl get ns
+kubectl get po
+kubectl get pods --all-namespaces
+kubectl get pods -n kube-system
+kubectl get pods -A or
+watch kubectl get pods -A
+kubectl get pods -A -o wide (along with node ip)
+kubectl describe pod <> -n "name_space"
+
+#### service account###
+kubectl get sa
+kubectl get sa -A
+kubectl delete sa/alb-ingress -n kube-system
+
+#### clusterrole ###
+kubectl get clusterrole
+kubectl delete clusterrole/alb-ingress-controller
+
+#### clusterrolebinding####
+kubectl get ClusterRoleBinding
+kubectl delete ClusterRoleBinding/alb-ingress-controller
+
+### create/apply ######
+;~ kubectl -n splunk-connect-k8s apply -f tiller-rbac-config.yml 
+serviceaccount/tiller created
+clusterrolebinding.rbac.authorization.k8s.io/tiller created
+
+### configmaps #####
+kubectl get cm or
+kubectl get cm -A or 
+kubectl get cm -n <namespace>
+kubectl describe configmap/configmap-example-1 -n <name_space>
+kubectl create configmap configmap-example-1 --from-file=./config-map-data.txt
+kubectl delete configmap/configmap-example-1
+kubectl get configmap configmap-example-1 -n <name_space> -o yaml or
+kubectl get cm/<config_map name> -n <name_space> -o yaml
+kubectl edit cm/<config_map_name> -n "<name_space>" or
+kubectl edit cm <config_map_name> -n "<name_space>"
+back up of cm: kubectl get cm fluent-config -n "amazon-cloudwatch" -o yaml>cm.yaml
+
+Note: never use -force and grace period to configmap commands in realtime deploys as it may corrupt data.
+
+###daemonsets ##
+kubectl get ds -n "<name_space>"
+kubectl delete daemonset <fluentd-splunk> -n <name_space>
+
+###delete pods###
+kubectl delete -n <name_space> pod <pod_name>
+
+
+
+
+
+
+
+
+
+
