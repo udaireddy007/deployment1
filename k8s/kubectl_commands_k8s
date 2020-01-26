@@ -22,6 +22,7 @@ kubectl get pods -A or
 watch kubectl get pods -A
 kubectl get pods -A -o wide (along with node ip)
 kubectl describe pod <> -n "name_space"
+kubectl get all --all-namespaces|grep "<name_space"
 
 #### service account###
 kubectl get sa
@@ -62,6 +63,20 @@ kubectl delete daemonset <fluentd-splunk> -n <name_space>
 
 ###delete pods###
 kubectl delete -n <name_space> pod <pod_name>
+
+### replica sets###
+kubectl get rs -n <name_space>
+kubectl describe ReplicaSet/<replica_name> -n <name_space>
+
+###deploy####
+kubectl get deploy -n <name_space>
+kubectl describe Deployment/<deployment_name> -n <name_space>
+kubectl delete Deployment/<deploy_name> -n <name_space>
+
+
+
+kubectl config current-context
+
 
 
 

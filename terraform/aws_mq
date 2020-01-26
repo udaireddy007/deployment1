@@ -1,0 +1,26 @@
+resource "aws_mq_broker" "sample" {
+  broker_name = "sample"
+//  configuration {
+//    id       = "${aws_mq_configuration.test.id}"
+//    revision = "${aws_mq_configuration.test.latest_revision}"
+//  }
+  engine_type        = "ActiveMQ"
+  engine_version     = "5.15.9"
+  host_instance_type = "mq.m4.large"
+  subnet_ids         = ["subnet-1", "subnet-2"]
+  security_groups    = [""]
+  publicly_accessible = "false"
+  apply_immediately = "true"
+  auto_minor_version_upgrade = "false"
+  user  {
+  username = "xxxx"
+  password = "xxxxxxxxx"
+  }
+  logs {
+    #default false for both
+    general = true 
+    audit = true
+  } 
+}
+
+note: make sure the password is without any special characters and is 12 digit
