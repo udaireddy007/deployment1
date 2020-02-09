@@ -7,3 +7,9 @@ aws iam list-users
 aws iam list-attached-group-policies --group-name Admins
 
 aws iam list-attached-user-policies - -user-name test
+
+# how to get AWS UserID#
+https://docs.aws.amazon.com/cli/latest/reference/iam/get-role.html
+
+ex: aws iam get-role --role-name Testrole
+aws iam get-user --user-name paul

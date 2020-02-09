@@ -20,3 +20,24 @@
         }
 
 Note: To get the userID perform: aws iam get-role --role-name <role_nmae>
+
+The below policy is attached to bucket policy for the s3 inventory:
+
+{
+            "Sid": "S3PolicyStmt-DO-NOT-MODIFY-1566578304069",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "s3.amazonaws.com"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::<bucket-name>/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control",
+                    "aws:SourceAccount": "<account_number>"
+                },
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:s3:::<bucket-name>"
+                }
+            }
+}

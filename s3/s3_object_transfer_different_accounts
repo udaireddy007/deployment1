@@ -65,3 +65,81 @@ Prerequisites
 }
 
 5) aws s3 sync s3://SOURCE-BUCKET-NAME s3://DESTINATION-BUCKET-NAME --source-region SOURCE-REGION-NAME --region DESTINATION-REGION-NAME
+
+
+When copying the objects between 2 accounts make sure that the source bucket gives bucket-owner-full-control permissions to the destination bucket without this you'll not be able to access the objects from the cross account. Here is the sample command for this: 
+aws s3 cp s3://source_awsexamplebucket/ s3://destination_awsexamplebucket/ --acl bucket-owner-full-control --recursive
+
+
+Scenario - I: This only gives IAM user access to ONLY to prefix uday inside bucket ragireddy in destination account (bucket)
+
+IAM User in Source Bucket Account
+IAM Policy attached below:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:ListObjectsV2",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ragireddy/uday"
+            ]
+        }
+    ]
+}
+
+
+
+S3 bucket policy in destination bucket:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DelegateS3Access",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<aws_account_number_source>:user/s3-test-uday"
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ragireddy/uday",
+                "arn:aws:s3:::ragireddy/uday/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
+        },
+        {
+            "Sid": "AllowListingOfUserFolder",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<aws_account_number_source>:user/s3-test-uday"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::ragireddy",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": "uday*"
+                }
+            }
+        }
+    ]
+
+}
+
+
+Note: after s3 cp use sync command to make sure all files are transferred, --recursive not needed along with sync command.
+
+aws s3 sync s3://sourcebucket/sample/test/folderA/folderB/folderC s3://ragireddy/uday --exclude '*' --include "*.mpg"
