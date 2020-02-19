@@ -2,8 +2,10 @@ I - to insert at the beginning of the line
 A - end of line
 5G - 5th line
 :set nu
+:set nonu
 gg - top of file
 G - end of file
+
 
 //copy file from local to instance
 scp -i "harness.pem" harness.tar.gz ec2-user@ec2-34.34.34.234.us-west-2.compute.amazonaws.com:/home/ec2-user 

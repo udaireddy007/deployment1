@@ -77,6 +77,9 @@ kubectl delete Deployment/<deploy_name> -n <name_space>
 
 kubectl config current-context
 
+#### Connect to pod #######
+kubectl exec -it <pod_name> -- sh
+
 
 
 
