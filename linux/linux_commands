@@ -10,6 +10,12 @@ G - end of file
 //copy file from local to instance
 scp -i "harness.pem" harness.tar.gz ec2-user@ec2-34.34.34.234.us-west-2.compute.amazonaws.com:/home/ec2-user 
 
+//copy file from instance to local
+scp -i test.pem ec2-user@92.44.40.100:/home/ec2-user/*.log /Users/john/log/
+
+//grep 
+grep "Problem File Copy" *log | wc -l
+
 ###find command####
 find . -name secret_file
 
