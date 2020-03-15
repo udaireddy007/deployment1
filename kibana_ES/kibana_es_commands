@@ -1,0 +1,18 @@
+DevTools ->
+
+GET _cluster/health
+GET _cat/indices?v
+DELETE /vidispine
+
+#Delete the red indices
+DELETE /indexname,indexname,indexname
+
+#List available snapshots (takes few seconds to list after you hit command)
+#cs-automated-enc for encrypted clusters
+GET /_snapshot/cs-automated[-enc]/_all or GET /_snapshot/cs-automated/_all
+
+## Restore the relevant indices from latest snapshot
+POST /_snapshot/cs-automated[-enc]/<SNAPSHOT ID>/_restore
+{
+    "indices": "index_1,index_2"
+}

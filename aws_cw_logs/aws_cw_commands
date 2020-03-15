@@ -1,0 +1,9 @@
+aws logs describe-log-groups --log-group-name-prefix my-logs
+
+aws logs describe-resource-policies
+
+Note: max limit of resource policies are 10
+
+aws logs delete-resource-policy --policy-name elkpplication-logs
+
+

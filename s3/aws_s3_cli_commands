@@ -45,3 +45,20 @@ aws s3api list-objects --bucket <bucket_name> --output json --query 'Contents[].
 
 // This command updates the put object acl permission for a single object in a bucket //
 aws s3api put-object-acl --bucket <bucket_name> --key file.txt --grant-full-control id=<canonical_id>
+
+// for s3 cp operations we need below permissions
+s3:GetObject
+s3:PutObject
+s3:DeleteObject
+
+// // for s3 cp operations we need below permissions
+s3:GetObject
+s3:PutObject
+
+// This command lists the versionIDs of Deletemarkers of a specific bucket and in specific folders/subfolders in specified date and then delete the delete markers so then the objects are created back/restored to original place. This command will only run 1000 at a time, if you have more than 1000 delete markers lets say 4000 you need to run this command 4 times.
+aws s3api list-object-versions --bucket test-s3-uday --prefix test/s3/uday/ --output json --query 'DeleteMarkers[?starts_with(LastModified, `2020-03-14`) == `true`].[Key, VersionId]' | jq -r '.[] | "--key '\''" + .[0] + "'\'' --version-id " + .[1]' |  xargs -L1 aws s3api delete-object --bucket test-s3-uday
+
+
+// lists the versions of deletemarkers of specific date and path //
+aws s3api list-object-versions --bucket test-s3-uday --prefix test/s3/uday/ --query 'DeleteMarkers[?starts_with(LastModified, `2020-03-15`) == `true`]'
+

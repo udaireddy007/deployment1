@@ -1,0 +1,10 @@
+https://aws.amazon.com/premiumsupport/knowledge-center/analyze-logs-athena/
+
+
+SELECT * FROM s3_access_logs_db.mybucket_logs WHERE operation like '%DELETE%';
+
+
+
+// This gives us complete list of objects which are deleted in between march 1 - 12 inside specific prefix //
+SELECT * FROM s3_access_logs_db.mybucket_logs WHERE key like '%prefix_name%' AND operation like '%DELETE%' AND parse_datetime(requestdatetime,'dd/MMM/yyyy:HH:mm:ss Z')
+BETWEEN parse_datetime('2020-03-01:00:00:00','yyyy-MM-dd:HH:mm:ss') AND parse_datetime('2020-03-12:23:59:59','yyyy-MM-dd:HH:mm:ss');
