@@ -1,0 +1,155 @@
+EC2, S3, RDS, ELB, VPC, Route53
+
+EC2:
+Tags
+Limits
+
+INSTANCES:
+Instances
+Instance Types
+Launch Templates
+Spot Requests
+Savings Plans
+Reserved Instances
+Dedicated Hosts
+Scheduled Instances
+Capacity Reservations
+
+IMAGES:
+AMIs
+Bundle Tasks
+
+ELASTIC BLOCK STORE:
+Volumes
+Snapshots
+Lifecycle Manager
+
+NETWORK & SECURITY:
+Security Groups
+Elastic IPs
+Placement Groups
+Key Pairs
+Network Interfaces
+
+
+LOAD BALANCING:
+Load Balancers
+Target Groups
+
+AUTO SCALING:
+Launch Configurations
+Auto Scaling Groups
+
+
+
+S3: SIMPLE STORAGE SERVICE
+Buckets
+Bucket Operations
+Access Analyzer for S3
+
+Block Public Access (account settings)
+
+Create Bucket:
+Bucket Name - Region - Bucket Settings for Block Public Access 
+Overview - Upload, Create Folder, Download, Actions (Get Total size, change storage class, restore, change encryption, change metadata, add tags, make public, rename, delete, undo delete, copy, move)
+Properties - Versioning (KMS & AES256), Server Access Logging, Static Website hosting, Object-level logging, default encryption) Advanced settings (Object lock, tags, transfer acceleration, events, requester pays)
+Permissions - Block public access, Access Control Lists(canonical id), Bucket Policy, CORS configuration
+Management - Lifecycle, replication, analytics, metrics, inventory
+Access Points
+
+
+RDS: Databases - Query Editor - Performance Insights - Snapshots - Automated Backups - Reserved Instances - Subnet Groups - Parameter groups - Certificate updates.
+
+Create Database
+Engine type - Version - writer and reader instances number -
+Settings:
+DB Cluster Identifier
+master username - master password - confirm password
+
+DB Instance Size
+DB Instance class (ex: db.r5.16xlarge) burstable classes included t classes 
+
+Availability & Durability - multi AZ deployment 
+
+Connectivity 
+VPC
+SG
+Subnets
+Subnet group
+Publicly accessible - yes/no
+database port
+
+Additional configuration:
+db instance identifier
+initial database name
+db cluster parameter group
+db parameter group
+failover priority
+backup retention period
+encryption - master key kms
+monitoring - IAM role and granularity
+
+Log Exports:
+Audit log
+Error log
+General log
+slow query log
+
+Maintenance window
+Delete protection - enable
+
+Connectivity & Security - Monitoring - Logs & Events - Configuration - Maintenance - Tags
+
+VPC 
+subnets
+route tables
+internet gateways
+DHCP option sets
+Elastic IPs
+Endpoints
+NAT Gateways
+Peering connections
+
+security: Network ACLs & SGs
+
+VPN: Customer gateways, VPG, 
+
+Transit Gateways
+
+
+Route53:
+Hosted Zones
+Domain Name - type (public or private) - record set count - Hosted Zone ID
+record set - name, type (A, CNAME, TXT), Alias, TTL (seconds) - Value
+Health checks
+Registered Domains
+
+ELB: Classic, application, network
+Scheme - Internal or Internet facing
+Instances - AZs and Status - InService
+Health Check
+Listeners
+Monitoring
+Tags
+Migration
+
+
+DynamoDB:
+tables, items, backups, metrics, alarms, triggers, tags
+
+Lambda - functions, layers
+runtime 
+code size
+last modified
+handler
+triggers
+configuration - permissions - monitoring
+
+cloudwatch - alarms, loggroups, insights, events rules, metrics
+
+cloudformation: create stacks, events,  write templates (s3 or upload)
+
+CloudTrail: track user activity and api usage
+events history, insights, trails
+
+
